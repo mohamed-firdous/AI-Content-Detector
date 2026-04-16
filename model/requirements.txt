@@ -1,0 +1,7 @@
+sentence-transformers
+transformers
+torch
+pdfminer.six
+python-docx
+scikit-learn
+numpy
