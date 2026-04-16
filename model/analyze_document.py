@@ -42,13 +42,52 @@ async def analyze_document(file_path):
 
     if not raw_text.strip():
         return {"error": "No extractable text found"}
+
+    normalized_text = " ".join(raw_text.split())
+    total_words = len(normalized_text.split())
+
+    if total_words < 25:
+        return {"error": "Document too short. Please upload at least 25 words."}
         
     paragraphs = split_into_paragraphs(raw_text)
     if not paragraphs and raw_text.strip():
         paragraphs = [raw_text.strip()]
     
+<<<<<<< HEAD
     if not paragraphs:
         return {"error": "No extractable text found."}
+=======
+    # Keep shorter paragraphs so compact academic documents can still be analyzed.
+    filtered_p = [p for p in raw_paragraphs if len(p.split()) >= 25]
+    
+    if not filtered_p:
+        filtered_p = [normalized_text]
+
+    # Chunking: Ensure chunks are between 120-350 words
+    processed_paragraphs = []
+    current_chunk = []
+    current_count = 0
+    
+    for p in filtered_p:
+        count = len(p.split())
+        if current_count + count > 350 and current_chunk:
+            processed_paragraphs.append(" ".join(current_chunk))
+            current_chunk = [p]
+            current_count = count
+        else:
+            current_chunk.append(p)
+            current_count += count
+            if current_count >= 120:
+                processed_paragraphs.append(" ".join(current_chunk))
+                current_chunk = []
+                current_count = 0
+    
+    if current_chunk:
+        processed_paragraphs.append(" ".join(current_chunk))
+
+    if not processed_paragraphs:
+        return {"error": "Could not form valid analysis chunks"}
+>>>>>>> 50e23d1 (fine-tuned model3)
         
     # --- PERFORMANCE OPTIMIZATION: SELECTIVE PLAGIARISM SEARCH ---
     search_candidates = []
