@@ -20,9 +20,7 @@ function App() {
     <div className="min-h-screen bg-slate-50 flex flex-col items-center pt-16 pb-20 px-4 font-sans text-slate-900">
       <div className="w-full max-w-5xl">
         <header className="mb-12 text-center flex flex-col items-center">
-          <div className="bg-indigo-100 text-indigo-700 font-semibold px-4 py-1.5 rounded-full text-xs mb-4 tracking-wide">
-            24-HOUR HACKATHON
-          </div>
+          
           <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-indigo-700 via-indigo-500 to-purple-600 tracking-tight">
             AI Assignment Detector
           </h1>
